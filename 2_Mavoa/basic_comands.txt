@@ -31,6 +31,10 @@ json
   "build": "webpack --config webpack.config.js"
 }
 То команда:
+
 bash
 npm run build
 Выполнит скрипт webpack --config webpack.config.js.
+
+node Task#2.js 
+// чтобы запустить пропиши в терминале 
