@@ -1,0 +1,29 @@
+p{
+    text-align: center;
+}
+
+body{
+    background-color: rgba(90, 128, 88, 0.603);
+    color: rgb(255, 255, 255);
+}   
+h1{
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    margin: 0 1em;
+}
+
+.no-underline {
+    text-decoration: none;
+    color: rgb(80, 31, 31);
+   font-size: larger;
+}

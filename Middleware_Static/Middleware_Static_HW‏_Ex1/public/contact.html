@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Contact Us</title>
+</head>
+
+<body>
+    <header>
+        <ul class="d-flex g1">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="./about.html">About</a>
+            </li>
+            <li>
+                <a href="./contact.html" class="active">Contact</a>
+            </li>
+        </ul>
+    </header>
+    <main>
+        <h1>Contact Us</h1>
+        <p style="text-align: center;">This project demonstrates the use of static middleware and API routes.</p>
+        <div class="contact-form">
+            <form action="/send-message" method="POST">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your email" required>
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" placeholder="Your message" required></textarea>
+
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+npm init  
+Создает файл package.json, который содержит информацию о вашем проекте (название, версия, зависимости и т.д.).
+Во время выполнения команды вам будет предложено заполнить данные (можно оставить значения по умолчанию).
+
+npm install react
+Устанавливает библиотеку React.
+
+npm install 
+Устанавливает все зависимости, указанные в package.json (раздел dependencies).
+Используется, когда вы клонируете проект и хотите установить все его зависимости.
+
+npm uninstall react
+Удаляет установленный пакет из проекта.
+
+npm update
+Обновление всех пакетов
+
+npm run
+npm run <script_name>
+Выполняет скрипт, указанный в разделе scripts файла package.json.
+
+npm run build
+Пример: Если в package.json есть:
+json
+"scripts": {
+  "build": "webpack --config webpack.config.js"
+}
+То команда:
+bash
+npm run build
+Выполнит скрипт webpack --config webpack.config.js.
