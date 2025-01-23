@@ -6,7 +6,7 @@ npm init -y
 Установите библиотеку mathjs: Это добавит mathjs в список зависимостей в вашем package.json и создаст папку node_modules.
 npm install mathjs
 
-node try_2  
+node try_2.js
 
 
 */
