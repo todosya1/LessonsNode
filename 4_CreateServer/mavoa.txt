@@ -1,0 +1,45 @@
+Этот пример демонстрирует, как создать простой HTTP-сервер в Node.js с использованием встроенного модуля http.
+
+
+
+
+git add .
+git commit -m "Ваше сообщение коммита"
+git push origin main
+залить на гитхаб
+
+npm init  
+Создает файл package.json, который содержит информацию о вашем проекте (название, версия, зависимости и т.д.).
+Во время выполнения команды вам будет предложено заполнить данные (можно оставить значения по умолчанию).
+
+npm install react
+Устанавливает библиотеку React.
+
+npm install 
+Устанавливает все зависимости, указанные в package.json (раздел dependencies).
+Используется, когда вы клонируете проект и хотите установить все его зависимости.
+
+npm uninstall react
+Удаляет установленный пакет из проекта.
+
+npm update
+Обновление всех пакетов
+
+npm run
+npm run <script_name>
+Выполняет скрипт, указанный в разделе scripts файла package.json.
+
+npm run build
+Пример: Если в package.json есть:
+json
+"scripts": {
+  "build": "webpack --config webpack.config.js"
+}
+То команда:
+
+bash
+npm run build
+Выполнит скрипт webpack --config webpack.config.js.
+
+node Task#2.js 
+// чтобы запустить пропиши в терминале 
