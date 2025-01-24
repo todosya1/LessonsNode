@@ -11,6 +11,7 @@ const start = async () => {
     try {
         const first = await readFile(`${dirPath}/first.txt`, 'utf8'); // Чтение первого файла
         const second = await readFile(`${dirPath}/second.txt`, 'utf8'); // Чтение второго файла
+        //Данные объединяются в строку и записываются в новый файл result.txt с помощью await writeFile
         await writeFile( // Запись результата в новый файл
             `${dirPath}/result.txt`, 
             `THIS IS AWESOME : ${first} ${second}`, 

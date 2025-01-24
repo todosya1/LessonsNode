@@ -4,20 +4,12 @@
 
 
 Без деструктуризации:
-
-javascript
-Копировать
-Редактировать
 const fs = require('fs');
 const readFile = fs.readFile;
 const writeFile = fs.writeFile;
 Здесь весь модуль fs импортируется, а затем извлекаются отдельные методы.
 
 С деструктуризацией:
-
-javascript
-Копировать
-Редактировать
 const { readFile, writeFile } = require('fs');
 Этот подход короче и позволяет сразу импортировать только те методы, которые нужны.
 
