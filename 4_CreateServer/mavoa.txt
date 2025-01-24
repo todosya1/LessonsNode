@@ -1,45 +1,84 @@
 Этот пример демонстрирует, как создать простой HTTP-сервер в Node.js с использованием встроенного модуля http.
+console.log(`The server is running on http://localhost:${PORT}`);
 
+На изображениях рассматриваются аспекты ответа HTTP-сервера и связанные с ними понятия, такие как статусные коды, заголовки и MIME-тип. Давайте разберём основные моменты.
 
+1. Ответ HTTP-сервера
+Ответ состоит из трёх основных частей:
 
+Строка статуса:
 
-git add .
-git commit -m "Ваше сообщение коммита"
-git push origin main
-залить на гитхаб
+Содержит версию протокола HTTP, статусный код и сообщение.
+Пример: HTTP/1.1 200 OK.
+Заголовки (Headers):
 
-npm init  
-Создает файл package.json, который содержит информацию о вашем проекте (название, версия, зависимости и т.д.).
-Во время выполнения команды вам будет предложено заполнить данные (можно оставить значения по умолчанию).
+Передают дополнительную информацию, такую как тип контента, длина контента и параметры соединения.
+Пример:
+less
+Копировать
+Редактировать
+Content-Type: text/html
+Content-Length: 44
+Тело ответа (Body):
 
-npm install react
-Устанавливает библиотеку React.
+Содержит данные, которые сервер отправляет клиенту (например, HTML-страница, JSON-данные или изображение).
+2. Статусные коды
+Статусные коды делятся на 5 групп:
 
-npm install 
-Устанавливает все зависимости, указанные в package.json (раздел dependencies).
-Используется, когда вы клонируете проект и хотите установить все его зависимости.
+1xx (Informational): Информационные.
+100 Continue: Сервер готов принять запрос.
+2xx (Successful): Успешные.
+200 OK: Запрос выполнен успешно.
+3xx (Redirection): Перенаправления.
+301 Moved Permanently: Ресурс перемещён на другой URL.
+4xx (Client Errors): Ошибки клиента.
+404 Not Found: Ресурс не найден.
+5xx (Server Errors): Ошибки сервера.
+500 Internal Server Error: Внутренняя ошибка сервера.
+3. MIME-типы
+MIME (Multipurpose Internet Mail Extensions) — стандарт для определения типа передаваемого контента:
 
-npm uninstall react
-Удаляет установленный пакет из проекта.
+Примеры MIME-типов:
+text/plain: Простой текст.
+text/html: HTML-документ.
+image/jpeg: Изображение JPEG.
+application/json: JSON-данные.
+application/pdf: PDF-файл.
+Пример заголовка:
 
-npm update
-Обновление всех пакетов
+arduino
+Копировать
+Редактировать
+Content-Type: text/html
+Означает, что тело ответа содержит HTML-страницу.
 
-npm run
-npm run <script_name>
-Выполняет скрипт, указанный в разделе scripts файла package.json.
+Пример создания сервера с заголовками и телом:
+Код server.js:
+javascript
+Копировать
+Редактировать
+const http = require('http');
 
-npm run build
-Пример: Если в package.json есть:
-json
-"scripts": {
-  "build": "webpack --config webpack.config.js"
-}
-То команда:
+const server = http.createServer((req, res) => {
+    // Установка заголовков
+    res.writeHead(200, {
+        'Content-Type': 'text/html',
+        'Connection': 'keep-alive',
+    });
 
+    // Отправка тела ответа
+    res.end('<html><head></head><body><h1>Hello, Node.js!</h1></body></html>');
+});
+
+const PORT = 3000;
+server.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
+Шаги для запуска:
+Сохраните код в файл server.js.
+Выполните команду:
 bash
-npm run build
-Выполнит скрипт webpack --config webpack.config.js.
-
-node Task#2.js 
-// чтобы запустить пропиши в терминале 
+Копировать
+Редактировать
+node server.js
+Перейдите в браузере на http://localhost:3000, чтобы увидеть результат.

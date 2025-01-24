@@ -1,0 +1,1 @@
+Here is the result: first FILE TEXT, the text was: this text is in input text fileD

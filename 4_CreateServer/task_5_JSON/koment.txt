@@ -6,24 +6,17 @@
 
 Пример:
 
-javascript
-Копировать
-Редактировать
 const obj = { name: "John", age: 30, city: "New York" };
 const jsonString = JSON.stringify(obj);
 console.log(jsonString); // {"name":"John","age":30,"city":"New York"}
-Объяснение:
 
+Объяснение:
 obj — это объект, который мы хотим преобразовать.
 JSON.stringify(obj) возвращает строку JSON.
+
 2. JSON.parse(text, reviver)
 Эта функция преобразует строку JSON в объект JavaScript.
 
-Пример:
-
-javascript
-Копировать
-Редактировать
 const jsonString = '{"name":"John","age":30,"city":"New York"}';
 const obj = JSON.parse(jsonString);
 console.log(obj); // { name: 'John', age: 30, city: 'New York' }
@@ -31,6 +24,7 @@ console.log(obj); // { name: 'John', age: 30, city: 'New York' }
 
 jsonString — это строка JSON.
 JSON.parse(jsonString) возвращает объект JavaScript.
+
 Применение:
 Сериализация объектов: Преобразование объекта в строку JSON для отправки данных на сервер.
 Десериализация строк: Преобразование строки JSON в объект для обработки данных, полученных с сервера.

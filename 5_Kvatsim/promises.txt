@@ -1,0 +1,68 @@
+Почему нужны Promises?
+Управление асинхронностью: Promises позволяют работать с асинхронными задачами (например, чтение файлов), не блокируя выполнение программы.
+Избегание вложенных колбэков: Код с вложенными колбэками сложен для чтения и отладки. Promises устраняют эту проблему.
+Улучшение читаемости: Код с Promises проще читать и понимать.
+Обработка ошибок: Promises предоставляют удобный механизм обработки ошибок с помощью .catch().
+Поддержка async/await: Promises интегрируются с синтаксисом async/await, который делает асинхронный код похожим на синхронный.
+Состояния промиса:
+Pending (в процессе): операция еще не завершена.
+Fulfilled (успешно выполнена): операция завершилась успешно.
+Rejected (отклонена): операция завершилась с ошибкой.
+
+************************
+Пример плохого кода с колбэками
+const fs = require('fs');
+
+// Код с вложенными колбэками
+fs.readFile('file1.txt', 'utf8', (err, data1) => {
+    if (err) return console.error(err);
+    fs.readFile('file2.txt', 'utf8', (err, data2) => {
+        if (err) return console.error(err);
+        fs.writeFile('result.txt', data1 + data2, (err) => {
+            if (err) return console.error(err);
+            console.log('File written successfully!');
+        });
+    });
+});
+Проблемы:
+Вложенность делает код трудно читаемым.
+Усложненная обработка ошибок на каждом уровне.
+
+
+Улучшение с использованием Promises
+const fs = require('fs').promises; // Импорт методов работы с файлами с поддержкой Promises
+
+async function processFiles() {
+    try {
+        const data1 = await fs.readFile('file1.txt', 'utf8'); // Чтение первого файла
+        const data2 = await fs.readFile('file2.txt', 'utf8'); // Чтение второго файла
+        await fs.writeFile('result.txt', data1 + data2); // Запись результата в новый файл
+        console.log('File written successfully!'); // Успех
+    } catch (err) {
+        console.error('Error:', err); // Обработка ошибок
+    }
+}
+
+processFiles(); // Запуск функции
+
+Преимущества:
+
+Код стал плоским и проще для чтения.
+Ошибки обрабатываются централизованно в catch.
+
+*********************
+const fs = require('fs/promises'); // Импортируем модуль fs с поддержкой Promises
+
+const processFiles = async () => {
+  try {
+    const data1 = await fs.readFile('file1.txt', 'utf8'); // Чтение первого файла
+    const data2 = await fs.readFile('file2.txt', 'utf8'); // Чтение второго файла
+    await fs.writeFile('result.txt', data1 + data2); // Запись результата в новый файл
+    console.log('File written successfully!'); // Успешное завершение
+  } catch (err) {
+    console.error(err); // Обработка ошибок
+  }
+};
+
+processFiles(); // Вызов функции
+

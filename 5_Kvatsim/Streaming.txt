@@ -1,0 +1,47 @@
+Код, показанный на изображении, демонстрирует использование потоков (streams) для чтения и записи данных. 
+Он идеально подходит для работы с большими объемами данных, поскольку работает с частями (chunks), а не загружает весь файл в память.
+
+Объяснение кода:
+Импорт модулей:
+
+http — для создания HTTP-сервера.
+fs — для работы с файлами.
+Чтение и запись файлов с использованием потоков:
+
+fs.createReadStream('source.txt') — создает поток для чтения данных из файла source.txt.
+fs.createWriteStream('destination.txt') — создает поток для записи данных в файл destination.txt.
+readStream.pipe(writeStream) — соединяет поток чтения с потоком записи, передавая данные напрямую.
+Создание HTTP-сервера:
+
+Сервер отвечает клиенту, но текущая реализация потока (readStream.pipe(writeStream)) не связана с обработкой HTTP-запросов.
+Запуск сервера:
+
+Сервер слушает порт 3000.
+Готовый код:
+
+const http = require('http'); // Импортируем модуль HTTP
+const fs = require('fs'); // Импортируем модуль для работы с файлами
+
+// Создаем поток для чтения и записи данных
+const readStream = fs.createReadStream('source.txt'); // Чтение из файла source.txt
+const writeStream = fs.createWriteStream('destination.txt'); // Запись в файл destination.txt
+
+// Передаем данные из одного потока в другой
+readStream.pipe(writeStream);
+
+// Создаем HTTP-сервер
+const server = http.createServer((req, res) => {
+    res.end('Streaming operation is completed');
+});
+
+// Запускаем сервер на порту 3000
+server.listen(3000, () => {
+    console.log('Server is running on http://localhost:3000');
+});
+Инструкция по запуску:
+Создайте файл source.txt и добавьте в него любой текст.
+Скопируйте код выше в файл app.js.
+
+Проверьте:
+В каталоге проекта должен появиться файл destination.txt с содержимым из source.txt.
+Перейдите на http://localhost:3000 в браузере, чтобы увидеть сообщение от сервера.
