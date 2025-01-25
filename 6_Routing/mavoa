@@ -1,0 +1,49 @@
+Routing — это процесс обработки запросов на сервер Node.js, при котором сервер отвечает на запросы, 
+основанные на URL и HTTP-методе (GET, POST, PUT, DELETE и т.д.).
+
+Код ниже реализует простой роутинг (обработку маршрутов) с использованием встроенного модуля http Node.js. 
+Мы можем выполнять роутинг вручную или с использованием специализированных библиотек, таких как Express.
+
+Импортируется модуль http.
+Создается HTTP-сервер с использованием метода http.createServer.
+Сервер анализирует URL и HTTP-метод запроса:
+Если URL равен /, возвращается сообщение "Welcome to the Home Page".
+Если URL равен /about, возвращается сообщение "About Us Page".
+Если URL равен /contact, возвращается сообщение "Contact Page".
+Если URL не совпадает ни с одним из маршрутов, возвращается ошибка 404 с сообщением "404 Page Not Found".
+Сервер запускается на порту 3000.
+Код с комментариями:
+javascript
+Копировать
+Редактировать
+const http = require('http'); // Импорт модуля HTTP
+
+// Создаем HTTP-сервер
+const server = http.createServer((req, res) => {
+    // Получаем URL и метод запроса
+    const { url, method } = req;
+
+    // Обработка маршрутов
+    if (url === '/') {
+        // Главная страница
+        res.writeHead(200, { 'Content-Type': 'text/plain' }); // Устанавливаем заголовок ответа
+        res.end('Welcome to the Home Page'); // Отправляем ответ
+    } else if (url === '/about') {
+        // Страница "О нас"
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('About Us Page');
+    } else if (url === '/contact') {
+        // Страница "Контакты"
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Contact Page');
+    } else {
+        // Обработка неизвестных маршрутов
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('404 Page Not Found');
+    }
+});
+
+// Запуск сервера на порту 3000
+server.listen(3000, () => {
+    console.log('Server running on port 3000');
+});
