@@ -1,0 +1,19 @@
+На изображении показан процесс установки Express.js, популярного фреймворка для Node.js. Давайте я объясню шаги:
+Инициализация проекта Node.js:
+Создайте package.json, используя команду:
+
+npm init -y
+
+Установка Express:
+Установите Express.js с помощью команды:
+
+npm install express
+
+Проверка установки:
+Убедитесь, что Express добавлен в dependencies в package.json:
+json
+CopyInsert
+"dependencies": {
+  "express": "^<version_number>"
+}
+Эти шаги помогут вам начать работу с Express.js для создания веб-приложений на Node.js.
