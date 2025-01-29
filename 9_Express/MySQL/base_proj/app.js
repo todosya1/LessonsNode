@@ -1,7 +1,7 @@
 const express = require('express');           // Импортируем фреймворк Express
 const app = express();                        // Создаем экземпляр приложения Express
 const userRoutes = require('./routes/user');  // Импортируем маршруты пользователей из отдельного файла
-const port = 3000;                            // Устанавливаем порт для сервера
+const port = 3001;                            // Устанавливаем порт для сервера
 
 // Подключаем middleware для обработки JSON-данных в запросах
 app.use(express.json());
