@@ -1,0 +1,35 @@
+Шаг 1: Создание базовой структуры
+Создаем папку task#1
+Внутри создаем папку routes
+Создаем файлы:
+app.js (главный файл)
+routes/admin.js (для админ-маршрутов)
+routes/users.js (для пользовательских маршрутов)
+Шаг 2: Настройка app.js
+javascript
+CopyInsert
+const express = require('express');
+const app = express();
+app.use(express.json()); // для обработки JSON
+
+// Подключаем роутеры
+const adminRoutes = require('./routes/admin');
+const userRoutes = require('./routes/users');
+
+// Используем роутеры
+app.use('/api/admin', adminRoutes);
+app.use('/api/users', userRoutes);
+Шаг 3: Создание админ-маршрутов в admin.js
+GET /api/admin - панель админа
+GET /api/admin/stats - статистика
+POST /api/admin/create - создание ресурса
+Шаг 4: Создание пользовательских маршрутов в users.js
+GET /api/users - список пользователей
+GET /api/users/:id - информация о конкретном пользователе
+PUT /api/users/:id - обновление пользователя
+Шаг 5: Тестирование в Postman
+Проверить все маршруты:
+http://localhost:3000/api/admin
+http://localhost:3000/api/admin/stats
+http://localhost:3000/api/users
+и т.д.

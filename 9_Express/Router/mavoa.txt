@@ -1,0 +1,58 @@
+Router (Маршрутизатор)
+В момент когда проект растет, становится сложно управлять маршрутами и хранить их в одном файле. До сих пор весь код был в app.js, но теперь можно разделить на части с использованием require и export. Но Express делает разделение еще проще, когда речь идет о маршрутах.
+
+Мы организуем несколько маршрутов в группы. Это мини-роутер express, который можно экспортировать.
+
+Зачем использовать роутер?
+Модульность: разделение маршрутов по модулям, например для пользователей, продуктов, заказов и т.д.
+Чистота: меньше кода в одном месте
+Повторное использование: можно экспортировать и использовать в разных местах
+Контроль: лучшая организация групп маршрутов
+Как это работает
+1. Создание экземпляра Router:
+
+const express = require('express');
+const router = express.Router();
+
+2. Определение маршрутов:
+Для пользователей (пример):
+//файл: routes/user.js
+router.get('/', (req, res) => {
+    res.json({ message: 'User List' });
+});
+
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+    res.json({ message: `Details of user with ID: ${id}` });
+});
+
+router.post('/users', (req, res) => {
+    res.json({ message: 'User added' });
+});
+
+Для администратора (пример):
+//файл: routes/admin.js
+router.get('/', (req, res) => {
+    res.json({ message: 'Admin Dashboard' });
+});
+
+router.get('/stats', (req, res) => {
+    res.json({ message: 'Admin Statistics' });
+});
+
+router.post('/create', (req, res) => {
+    res.json({ message: 'Admin created a resource' });
+});
+
+3. Использование в главном приложении:
+const express = require('express');
+const app = express();
+const userRoutes = require('./routes/users');
+const adminRoutes = require('./routes/admin');
+
+app.use('/api/users', userRoutes);
+app.use('/api/admin', adminRoutes);
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});

@@ -51,9 +51,6 @@ app.listen(port, () => {
 /*
 Чтобы протестировать его:
 
-Запустите сервер:
-bash
-CopyInsert in Terminal
 node HW2.js
 Проверьте разные URL:
 Публичная страница:
