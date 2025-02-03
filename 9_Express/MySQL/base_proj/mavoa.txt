@@ -1,4 +1,74 @@
 1.
 npm install mysql2
+<<<<<<< HEAD
 npm init -y
 npm install express
+
+2. 
+"Чтобы подключиться к MySQL нам нужна следующая информация: 
+• host (обычно localhost) 
+• имя пользователя (например, root) 
+• пароль 
+• имя базы данных
+
+3. Рекомендуется использовать паттерн Singleton, чтобы создать только одно подключение к базе данных.
+Этот модуль будет управлять подключением к базе данных."
+
+4.
+connection.connect((err) => { ... }):
+Это функция создания нового подключения. Она проверяет, успешно ли установлено соединение с базой данных.
+connection.on('error', (err) => { ... }):
+Это обработчик событий, который следит за ошибками в уже существующем подключении.
+Эти методы являются важными частями при работе с MySQL в Node.js.
+ Они помогают:
+Установить первоначальное подключение к базе данных
+Обрабатывать ошибки, которые могут возникнуть во время работы с базой данных
+Обеспечить надежное соединение с базой данных
+
+
+
+
+
+
+
+пачка с кодами:
+3. 
+dbSingleton.js 
+const mysql = require('mysql2');
+
+let connection; // Variable for storing a single connection
+
+const dbSingleton = {
+    getConnection: () => {
+        if (!connection) {
+            // Create a connection only once
+            connection = mysql.createConnection({
+                host: 'localhost',
+                user: 'root',
+                password: 'your_password',
+                database: 'your_database',
+            });
+
+            // Connect to the database
+            connection.connect((err) => {
+                if (err) {
+                    console.error('Error connecting to database:', err);
+                    throw err;
+                }
+                console.log('Connected to MySQL!');
+            });
+
+            // Handle connection errors
+            connection.on('error', (err) => {
+                console.error('Database connection error:', err);
+                if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+                    connection = null; // Update the connection state
+                }
+            });
+        }
+
+        return connection; // Return the current connection
+    },
+};
+
+module.exports = dbSingleton;

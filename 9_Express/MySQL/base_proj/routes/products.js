@@ -1,4 +1,3 @@
-// Импортируем необходимые модули
 const express = require('express');
 const router = express.Router();
 const dbSingleton = require('../database/dbSingleton');
@@ -21,12 +20,12 @@ router.post('/', (req, res) => {
 
 // READ - Получение всех продуктов с опциональным лимитом
 router.get('/', (req, res, next) => {
-    try{
-        const limit = req.query.limit;
+    try {
+        const { limit } = req.query;
 
         // Проверяем, является ли лимит числом в запросе
-        if (limit && isNaN(limit)){
-            return res.status(400).json({error: 'Parameter "limit" must be a number'});
+        if (limit && isNaN(limit)) {
+            return res.status(400).json({ error: 'Parameter "limit" must be a number' });
         }
 
         // Главная Логика
@@ -48,7 +47,6 @@ router.get('/', (req, res, next) => {
         next(error);
     }
 });       
- 
 
 // READ - Получение продукта по ID
 router.get('/:id', (req, res) => {

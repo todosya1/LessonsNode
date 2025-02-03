@@ -1,6 +1,6 @@
 const express = require('express');           // Импортируем фреймворк Express
 const app = express();                        // Создаем экземпляр приложения Express
-const userRoutes = require('./routes/user');  // Импортируем маршруты пользователей из отдельного файла
+const userRoutes = require('./routes/user');  // Импортируем маршруты пользователей
 const productRoutes = require('./routes/products'); // Импортируем маршруты продуктов
 const orderRoutes = require('./routes/orders'); // Импортируем маршруты заказов
 const port = 3000;                            // Устанавливаем порт для сервера
@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
     });
 });
 
-// Подключаем маршруты пользователей. Все запросы к /users будут обрабатываться в userRoutes
+// Подключаем маршруты
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);

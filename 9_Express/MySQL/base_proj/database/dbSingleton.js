@@ -22,18 +22,9 @@ const dbSingleton = {
                 }
                 console.log('Connected to MySQL!');
             });
-
-            // Handle connection errors
-            connection.on('error', (err) => {
-                console.error('Database connection error:', err);
-                if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-                    connection = null; // Update the connection state
-                }
-            });
         }
-
-        return connection; // Return the current connection
-    },
+        return connection;
+    }
 };
 
 module.exports = dbSingleton;
