@@ -41,4 +41,23 @@ app.use((err, req, res, next) => {
 // Запускаем сервер на указанном порту
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
+    console.log('=== Available Routes ===');
+    console.log(`http://localhost:${port}/users`);
+    console.log(`http://localhost:${port}/articles`);
+   
+    console.log('\nUsers:');
+    console.log(`GET    http://localhost:${port}/users`);
+    console.log(`GET    http://localhost:${port}/users/WRITE_YOUR_ID_HERE`);
+    console.log(`POST   http://localhost:${port}/users`);
+    console.log(`POST   http://localhost:${port}/users/login`);
+    console.log(`PUT    http://localhost:${port}/users/:id`);
+    console.log(`DELETE http://localhost:${port}/users/:id`);
+
+    console.log('\nArticles:');
+    console.log(`GET    http://localhost:${port}/articles`);
+    console.log(`GET    http://localhost:${port}/articles/WRITE_YOUR_ID_HERE`);
+    console.log(`POST   http://localhost:${port}/articles`);
+    console.log(`PUT    http://localhost:${port}/articles/:id`);
+    console.log(`DELETE http://localhost:${port}/articles/:id`);
+
 });

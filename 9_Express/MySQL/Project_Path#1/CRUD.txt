@@ -1,0 +1,124 @@
+5. Basic CRUD Operations:
+5.1. CREATE (POST '/') - "יצירת רשומה":
+   - Создает нового пользователя ("יוצר משתמש חדש")
+   - Принимает name и email в теле запроса ("מקבל שם ואימייל בגוף הבקשה")
+   - Возвращает созданного пользователя с его ID ("מחזיר את המשתמש שנוצר עם המזהה שלו")
+
+5.2. READ (GET '/') - "קריאת רשומה":
+   - Получает список всех пользователей ("מקבל רשימה של כל המשתמשים")
+   - Возвращает массив пользователей ("מחזיר מערך של משתמשים")
+
+5.3. READ (GET '/:id') - "קריאת רשומה לפי מזהה":
+   - Получает одного пользователя по его ID ("מקבל משתמש אחד לפי המזהה שלו")
+   - Возвращает данные пользователя или 404 если не найден ("מחזיר את נתוני המשתמש או 404 אם לא נמצא")
+
+5.4. UPDATE (PUT '/:id') - "עדכון רשומה":
+   - Обновляет данные пользователя по ID ("מעדכן את נתוני המשתמש לפי המזהה")
+   - Принимает новые name и email в теле запроса ("מקבל שם ואימייל חדשים בגוף הבקשה")
+   - Возвращает обновленные данные ("מחזיר את הנתונים המעודכנים")
+
+5.5. DELETE (DELETE '/:id') - "מחיקת רשומה":
+   - Удаляет пользователя по ID ("מוחק משתמש לפי המזהה")
+   - Возвращает сообщение об успешном удалении ("מחזיר הודעה על מחיקה מוצלחת")
+
+Для работы этого кода вам нужно:
+Создать таблицу users в базе данных с полями id, name и email 
+Убедиться, что в dbSingleton.js правильно указаны параметры подключения к базе данных 
+
+5.1 Adding a new user (C - Create) 
+//routes/user.js
+...
+router.post('/', (req, res) =>{
+    const { name, email, password } = req.body;
+    const query = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)';
+    db.query(query, [name, email, password], (err, results) => {
+        if (err){
+            res.status(500).send(err);
+            return;
+        }
+        res.json({message: 'User added!', id: results.insertId });
+        });
+    });
+
+5.2 Read all users (R-Read)
+//routes/user.js
+...
+// Execute a query to the database
+const db = dbSingleton.getConnection();
+
+router.get('/', (req, res) => {
+    const query = 'SELECT * FROM users';
+    db.query(query, (err, results) = > {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        res.json(results);
+    });
+});
+
+5.3  CRUD - User update (U - Update) ("עדכון משתמש")
+router.put('/:id', (req, res) =>{                           // Создаем PUT-маршрут для обновления пользователя по ID ("יוצר נתיב PUT לעדכון משתמש לפי מזהה")
+    const { id} = req.params;                               // Получаем ID пользователя из параметров маршрута ("מקבל את מזהה המשתמש מפרמטרי הנתיב")
+    const { name, email, password } = req.body;             // Получаем новые данные из тела запроса ("מקבל את הנתונים החדשים מגוף הבקשה")
+    const query = 'UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?';    // SQL-запрос для обновления пользователя
+    db.query(query, [name, email, password, id], (err, results) =>{                     // Выполняем запрос с параметрами
+        if (err) {
+            res.status(500).send(err);                      // Если произошла ошибка, отправляем статус 500 
+            return;
+        }
+        res.json({message: 'User updated!'});                // Отправляем сообщение об успешном обновлении  
+    });
+});
+
+5.4 CRUD - Deleting a user (D - Delete)
+// routes/user.js
+router.delete('/:id', (req, res) =>{                    // Создаем DELETE-маршрут для удаления пользователя
+    const { id } = req.params;                          // Получаем ID пользователя из параметров
+    const query = 'DELETE FROM users WHERE id = ?';     // SQL-запрос для удаления пользователя
+    db.query(query, [id], (err, results) => {           // Выполняем запрос с параметром ID
+        if (err) {
+            res.status(500).send(err);                      // Если произошла ошибка, отправляем статус 500 
+            return;
+        }
+        res.json({message: 'User deleted!'});                // Отправляем сообщение об успешном удалении  
+    })
+
+
+Почему Singleton лучше? ("למה Singleton עדיף?")
+
+Эффективное использование ресурсов ("חיסכון במשאבים"):
+Одно подключение во многих местах
+Централизованное управление ("ניהול מרכזי"):
+Все модули используют одно и то же подключение
+Обработка ошибок ("טיפול בשגיאות"):
+Можно обрабатывать ошибки подключения и делиться ими централизованно
+Улучшенная производительность ("קריאה משופרת"):
+Код становится легче и проще в обслуживании
+
+
+
+
+
+SQL scripts:
+
+-- Create database
+CREATE DATABASE IF NOT EXISTS `user_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Select database
+USE `user_db`;
+
+-- Creating the users table
+CREATE TABLE IF NOT EXISTS `users` (
+ `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+ `name` VARCHAR(255) NOT NULL,
+ `email` VARCHAR(255) NOT NULL UNIQUE,
+ `password` VARCHAR(255) NOT NULL,
+ `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Optional: insert test data
+INSERT INTO `users` (`name`, `email`, `password`) VALUES
+('John Doe', 'john@example.com', 'hashed_password1'),
+('Jane Doe', 'jane@example.com', 'hashed_password2');

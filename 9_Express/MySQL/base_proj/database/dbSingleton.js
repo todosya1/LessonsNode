@@ -14,7 +14,7 @@ const dbSingleton = {
                 database: 'shop_db',
             });
 
-            // Connect to the database
+            // Подключаемся к базе данных
             connection.connect((err) => {
                 if (err) {
                     console.error('Error connecting to database:', err);

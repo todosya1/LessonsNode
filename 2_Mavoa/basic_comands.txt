@@ -2,6 +2,9 @@ git add .
 git commit -m "Ваше сообщение коммита"
 git push origin main
 залить на гитхаб
+git pull origin main
+получить из гитхаба
+
 
 npm init  
 Создает файл package.json, который содержит информацию о вашем проекте (название, версия, зависимости и т.д.).

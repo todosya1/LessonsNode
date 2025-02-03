@@ -11,10 +11,10 @@ const dbSingleton = {
                 host: 'localhost',
                 user: 'root',
                 password: '',
-                database: 'user_db',
+                database: 'shop_db',
             });
 
-            // Connect to the database
+            // Подключаемся к базе данных
             connection.connect((err) => {
                 if (err) {
                     console.error('Error connecting to database:', err);
@@ -22,18 +22,9 @@ const dbSingleton = {
                 }
                 console.log('Connected to MySQL!');
             });
-
-            // Handle connection errors
-            connection.on('error', (err) => {
-                console.error('Database connection error:', err);
-                if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-                    connection = null; // Update the connection state
-                }
-            });
         }
-
-        return connection; // Return the current connection
-    },
+        return connection;
+    }
 };
 
 module.exports = dbSingleton;

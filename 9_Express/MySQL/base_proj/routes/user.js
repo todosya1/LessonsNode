@@ -1,15 +1,15 @@
 // routes/user.js
 const express = require('express');
-const router = express.Router();
+const router = express.Router(); // Создаем новый экземпляр роутера Express для обработки маршрутов пользователя
 const dbSingleton = require('../database/dbSingleton');
+const bcrypt = require('bcrypt'); // Импортируем bcrypt для хэширования паролей
 
-// Execute a query to the database
-const db = dbSingleton.getConnection();
+const db = dbSingleton.getConnection(); // Execute a query to the database
 
 // READ - Получение пользователя по ID
 router.get('/:id', (req, res) => {
     const { id } = req.params;
-    const query = 'SELECT * FROM users WHERE id = ?';
+    const query = 'SELECT * FROM users WHERE id = ?'; 
     
     db.query(query, [id], (err, results) => {
         if (err) {
@@ -26,13 +26,13 @@ router.get('/:id', (req, res) => {
     });
 });
 
+// Создание пользователя
 // CRUD - Adding a new user (C - Create) 
 router.post('/', (req, res) =>{                  // Создаем POST-маршрут для добавления нового пользователя ("יוצר נתיב POST להוספת משתמש חדש")
     const { name, email, password } = req.body;  // Извлекаем данные пользователя из тела запроса ("מחלץ את נתוני המשתמש מגוף הבקשה")
-    
     const query = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)';  // SQL-запрос для вставки данных ("שאילתת SQL להוספת הנתונים")
-    
-    db.query(query, [name, email, password], (err, results) => {  // Выполняем запрос с параметрами ("מבצע את השאילתה עם הפרמטרים")
+    // Выполняем запрос с параметрами ("מבצע את השאילתה עם הפרמטרים")
+    db.query(query, [name, email, password], (err, results) => {  
         if (err) {
             res.status(500).send(err);  // В случае ошибки отправляем статус 500 ("במקרה של שגיאה שולח סטטוס 500")
             return;
@@ -58,9 +58,7 @@ router.get('/', (req, res) => {                 // Создаем GET-маршр
 router.put('/:id', (req, res) => {             // Создаем PUT-маршрут для обновления пользователя ("יוצר נתיב PUT לעדכון משתמש")
     const { id } = req.params;                 // Получаем ID из параметров маршрута ("מקבל ID מפרמטרי הנתיב")
     const { name, email, password } = req.body; // Получаем новые данные из тела запроса ("מקבל נתונים חדשים מגוף הבקשה")
-    
     const query = 'UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?'; // SQL-запрос для обновления ("שאילתת SQL לעדכון")
-    
     db.query(query, [name, email, password, id], (err, results) => { // Выполняем запрос с параметрами ("מבצע את השאילתה עם הפרמטרים")
         if (err) {
             res.status(500).send(err);         // В случае ошибки отправляем статус 500 ("במקרה של שגיאה שולח סטטוס 500")
