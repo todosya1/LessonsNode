@@ -5,6 +5,7 @@
 app.js (главный файл)
 routes/admin.js (для админ-маршрутов)
 routes/users.js (для пользовательских маршрутов)
+
 Шаг 2: Настройка app.js
 javascript
 CopyInsert
@@ -19,14 +20,17 @@ const userRoutes = require('./routes/users');
 // Используем роутеры
 app.use('/api/admin', adminRoutes);
 app.use('/api/users', userRoutes);
+
 Шаг 3: Создание админ-маршрутов в admin.js
 GET /api/admin - панель админа
 GET /api/admin/stats - статистика
 POST /api/admin/create - создание ресурса
+
 Шаг 4: Создание пользовательских маршрутов в users.js
 GET /api/users - список пользователей
 GET /api/users/:id - информация о конкретном пользователе
 PUT /api/users/:id - обновление пользователя
+
 Шаг 5: Тестирование в Postman
 Проверить все маршруты:
 http://localhost:3000/api/admin
